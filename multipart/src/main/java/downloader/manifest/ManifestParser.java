@@ -2,14 +2,14 @@ package downloader.manifest;
 
 import java.io.IOException;
 
-public class manifestParser {
+public class ManifestParser {
 
 	private String manifestFile = null;
 	
     /**
      * Parser constructor 
      */
-	public manifestParser (String manifestFile) {
+	public ManifestParser (String manifestFile) {
 		this.manifestFile = manifestFile;
 	}
 	
