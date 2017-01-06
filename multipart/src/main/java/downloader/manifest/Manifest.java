@@ -1,5 +1,35 @@
 package downloader.manifest;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
 public class Manifest {
+
+	// Manifest main URL
+	private String url;
+
+	
+	/**
+	 * This function will exctract the content-type from provided url
+	 * 
+	 *  @param
+	 */
+	public String getContentType() throws IOException {
+		URL url = new URL(this.url);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("HEAD");
+		conn.connect();
+		return conn.getContentType();
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
 
 }
