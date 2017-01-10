@@ -1,4 +1,4 @@
-package multipart;
+package downloader.multipart;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -7,7 +7,7 @@ import java.io.InputStream;
  * Static class for reading from a multipart stream.
 
  */
-public class Multipart {	
+public class MultiPart {	
 	/**
 	 * Returns an InputStream which streams from the given url.
 	 * <p>
