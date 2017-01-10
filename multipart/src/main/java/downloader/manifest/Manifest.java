@@ -1,11 +1,17 @@
 package downloader.manifest;
 
+<<<<<<< HEAD
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URLConnection;
+=======
+import java.io.IOException;
+import java.net.HttpURLConnection;
+import java.net.URL;
+>>>>>>> branch 'master' of https://github.com/AhmadBadir/Downloader.git
 
 public class Manifest {
 	private String[] urlStrings;
@@ -44,5 +50,31 @@ public class Manifest {
 		}
 		return outStr.toString().split("\r\n");
 	}
+
+	// Manifest main URL
+	private String url;
+
+	
+	/**
+	 * This function will exctract the content-type from provided url
+	 * 
+	 *  @param
+	 */
+	public String getContentType() throws IOException {
+		URL url = new URL(this.url);
+		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+		conn.setRequestMethod("HEAD");
+		conn.connect();
+		return conn.getContentType();
+	}
+
+	public void setUrl(String url) {
+		this.url = url;
+	}
+	
+	public String getUrl() {
+		return url;
+	}
+
 
 }
