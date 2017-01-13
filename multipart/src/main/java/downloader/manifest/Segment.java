@@ -5,7 +5,7 @@ import java.util.List;
 
 public class Segment {
 
-	private List<Segment> mirrors;
+	private ArrayList<Segment> mirrors;
 
 	public Segment() {
 		mirrors = new ArrayList<Segment>();
@@ -16,7 +16,7 @@ public class Segment {
 		return mirrors;
 	}
 
-	public void setMirrors(List<Segment> mirrors) {
+	public void setMirrors(ArrayList<Segment> mirrors) {
 		this.mirrors = mirrors;
 	}
 

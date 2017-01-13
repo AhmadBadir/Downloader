@@ -1,29 +1,14 @@
 package downloader.manifest;
 
 import java.io.IOException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 
 public class Manifest {
 	private String[] urlStrings;
 	// Manifest main URL
 	private String url;
 
-	public Manifest(String Urlstring) throws IOException {
-
-	}
-
-	/**
-	 * This function will get the content type from url
-	 * 
-	 * 
-	 */
-	public String getContentType() throws IOException {
-		URL url = new URL(this.url);
-		HttpURLConnection conn = (HttpURLConnection) url.openConnection();
-		conn.setRequestMethod("HEAD");
-		conn.connect();
-		return conn.getContentType();
+	public Manifest(String u) throws IOException {
+		this.url = url;
 	}
 
 	public void setUrl(String url) {
