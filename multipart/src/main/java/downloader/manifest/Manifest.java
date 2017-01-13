@@ -6,19 +6,17 @@ import java.net.URL;
 
 public class Manifest {
 	private String[] urlStrings;
-	
-	public Manifest(String Urlstring) throws IOException {
-
-	}
-	
 	// Manifest main URL
 	private String url;
 
-	
+	public Manifest(String Urlstring) throws IOException {
+
+	}
+
 	/**
 	 * This function will get the content type from url
 	 * 
-	 *  
+	 * 
 	 */
 	public String getContentType() throws IOException {
 		URL url = new URL(this.url);
@@ -31,10 +29,9 @@ public class Manifest {
 	public void setUrl(String url) {
 		this.url = url;
 	}
-	
+
 	public String getUrl() {
 		return url;
 	}
-
 
 }
