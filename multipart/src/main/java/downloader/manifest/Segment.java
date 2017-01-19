@@ -1,28 +1,28 @@
 package downloader.manifest;
 
 import java.util.ArrayList;
-import java.util.List;
 
-public class Segment {
+public class Segment extends UrlLine {
 
-	private ArrayList<Segment> mirrors;
+	private String mirrorUrl;
+	private ArrayList<String> mirrorAlternatives;
 
-	public Segment() {
-		mirrors = new ArrayList<Segment>();
+	public Segment(String mirrorUrl) {
+		this.mirrorUrl = mirrorUrl;
+		mirrorAlternatives = new ArrayList<String>();
 	}
 
+	public void addMirror(String mirrorAlternative) {
+		this.mirrorAlternatives.add(mirrorAlternative);
 
-	public List<Segment> getMirrors() {
-		return mirrors;
 	}
 
-	public void setMirrors(ArrayList<Segment> mirrors) {
-		this.mirrors = mirrors;
+	public String getMirrorUrl() {
+		return mirrorUrl;
 	}
 
-	public void addMirror(Segment segment) {
-		this.mirrors.add(segment);
-
+	public void setMirrorUrl(String mirrorUrl) {
+		this.mirrorUrl = mirrorUrl;
 	}
 
 }
