@@ -1,3 +1,6 @@
+/**
+ * Main class for manifestParsing, it takes the URL, parse its content.
+ */
 
 package downloader.manifest;
 
@@ -17,11 +20,31 @@ public class ManifestParser {
 	private Manifest manifestFile;
 	private ArrayList<UrlLine> segments;
 
+	/**
+	 * ManifestParser constructor, it takes Manifest file as an object to extract
+	 * the content
+	 * 
+	 * @param Object manifestFile manifestFile object
+	 * 
+	 */
+	
 	public ManifestParser(Manifest manifestFile) {
 		this.manifestFile = manifestFile;
 		segments = new ArrayList<UrlLine>();
 	}
 
+	/**
+	 * getURLcontentType function, it takes Manifest url and extracts the
+	 * content type
+	 * 
+	 * @param String manifestUrl manifest string url
+	 * 
+	 * @return string content type
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	
 	private String getURLcontentType(String manifestUrl) throws IOException {
 		URL url = new URL(manifestUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -30,6 +53,17 @@ public class ManifestParser {
 		return connection.getContentType();
 	}
 
+	/**
+	 * isValidManifestUrl function, check if the manifest url is valid
+	 * 
+	 * @param String url, manifest string url
+	 * 
+	 * @return boolean true if url is valid manifest Url, false otherwise
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	
 	private boolean isValidManifestUrl(String url) throws IOException {
 		if (url.endsWith(".segments") || getURLcontentType(url).equals("text/segments-manifest")) {
 			return true;
@@ -37,8 +71,19 @@ public class ManifestParser {
 		return false;
 	}
 
+	/**
+	 * getSegments function, extracts the segments from manifest file
+	 * 
+	 * @param
+	 * 
+	 * @return ArrayList, returns array list of segments and manifest urls
+	 * inside manifest file
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	
 	public ArrayList<UrlLine> getSegments() throws IOException {
-
 		ArrayList<String> manifestLines = extractManifestLines();
 		boolean isAlternative = false;
 		for(String manifestline :  manifestLines) {
@@ -50,7 +95,6 @@ public class ManifestParser {
 					//check if Manifest
 					if(isValidManifestUrl(manifestline.trim())) {
 						segments.add(new Manifest(manifestline.trim()));
-					
 					} else { 
 						// it is a Segment
 						if(isAlternative) {
@@ -67,6 +111,18 @@ public class ManifestParser {
 		return segments;
 	}
 
+	/**
+	 * extractManifestLines function, extracts the lines from manifest file
+	 * 
+	 * @param
+	 * 
+	 * @return ArrayList, returns array list of lines inside the manifest
+	 * file
+	 * 
+	 * @throws IOException
+	 * 
+	 */
+	
 	private ArrayList<String> extractManifestLines() throws IOException {
 		ArrayList<String> manifestLines = new ArrayList<String>();
 		URLConnection manifestUrlCon = new URL(this.manifestFile.getUrl()).openConnection();

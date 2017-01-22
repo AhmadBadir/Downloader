@@ -5,7 +5,6 @@ import java.io.InputStream;
 
 /**
  * Static class for reading from a multipart stream.
-
  */
 public class MultiPart {	
 	/**
