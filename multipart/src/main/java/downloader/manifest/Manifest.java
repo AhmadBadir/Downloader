@@ -1,12 +1,12 @@
 package downloader.manifest;
 
-import java.io.IOException;
 
 public class Manifest extends UrlLine {
 	// Manifest main URL
 	private String url;
 
-	public Manifest(String url) throws IOException {
+
+	public Manifest(String url)  {
 		this.url = url;
 
 	}
