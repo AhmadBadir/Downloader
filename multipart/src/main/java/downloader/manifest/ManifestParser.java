@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import downloader.exceptions.invalidManifestFileException;
 import downloader.exceptions.invalidUrlException;
 import downloader.utils.Utils;
 
@@ -91,10 +92,11 @@ public class ManifestParser {
 	 * 
 	 * @throws IOException
 	 * @throws invalidUrlException
+	 * @throws invalidManifestFileException 
 	 * 
 	 */
 
-	public ArrayList<UrlLine> getSegments() throws IOException, invalidUrlException {
+	public ArrayList<UrlLine> getSegments() throws IOException, invalidUrlException, invalidManifestFileException {
 		ArrayList<String> manifestLines = extractManifestLines();
 		boolean isAlternative = false;
 		for (String manifestline : manifestLines) {
@@ -118,7 +120,7 @@ public class ManifestParser {
 					}
 				}
 			} else {
-				throw new exception
+				throw new invalidManifestFileException("Invalided Manifest File");
 			}
 		}
 		return segments;
