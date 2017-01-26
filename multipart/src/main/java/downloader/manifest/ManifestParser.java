@@ -13,6 +13,7 @@ import java.net.URL;
 import java.net.URLConnection;
 import java.util.ArrayList;
 
+import downloader.exceptions.invalidUrlException;
 import downloader.utils.Utils;
 
 public class ManifestParser {
@@ -42,15 +43,20 @@ public class ManifestParser {
 	 * @return string content type
 	 * 
 	 * @throws IOException
+	 * @throws invalidUrlException 
 	 * 
 	 */
 	
-	private String getURLcontentType(String manifestUrl) throws IOException {
+	private String getURLcontentType(String manifestUrl) throws IOException, invalidUrlException {
+		if(Utils.isUrl(manifestUrl)) {
 		URL url = new URL(manifestUrl);
 		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 		connection.setRequestMethod("HEAD");
 		connection.connect();
 		return connection.getContentType();
+		} else {
+			throw new invalidUrlException("The URL provided is not valid URL");
+		}
 	}
 
 	/**
@@ -61,10 +67,11 @@ public class ManifestParser {
 	 * @return boolean true if url is valid manifest Url, false otherwise
 	 * 
 	 * @throws IOException
+	 * @throws invalidUrlException 
 	 * 
 	 */
 	
-	private boolean isValidManifestUrl(String url) throws IOException {
+	private boolean isValidManifestUrl(String url) throws IOException, invalidUrlException {
 		if (url.endsWith(".segments") || getURLcontentType(url).equals("text/segments-manifest")) {
 			return true;
 		}
@@ -80,10 +87,11 @@ public class ManifestParser {
 	 * inside manifest file
 	 * 
 	 * @throws IOException
+	 * @throws invalidUrlException 
 	 * 
 	 */
 	
-	public ArrayList<UrlLine> getSegments() throws IOException {
+	public ArrayList<UrlLine> getSegments() throws IOException, invalidUrlException {
 		ArrayList<String> manifestLines = extractManifestLines();
 		boolean isAlternative = false;
 		for(String manifestline :  manifestLines) {
