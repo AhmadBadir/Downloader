@@ -1,6 +1,14 @@
 package downloader.manifest;
 
-import junit.framework.Test;
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+
+import org.junit.Test;
+
+import downloader.exceptions.UnreachableMirrorException;
+import downloader.exceptions.invalidManifestFileException;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -25,7 +33,7 @@ public class SegmentTest
      */
     public static Test suite()
     {
-        return new TestSuite( SegmentTest.class );
+        return (Test) new TestSuite( SegmentTest.class );
     }
 
     /**
@@ -35,4 +43,20 @@ public class SegmentTest
     {
         assertTrue( true );
     }
+    
+    @Test
+	public final void testWriteToStream() throws IOException, UnreachableMirrorException, invalidManifestFileException {
+		Segment segment = new Segment("http://machine1.birzeit.edu/manifest");
+		File outputFile = new File("outputFile");
+		OutputStream outputStream = new FileOutputStream(outputFile) ;
+		segment.writeContent(outputStream);
+	}
+    
+    @Test(expected=UnreachableMirrorException.class)
+	public final void testUnreachableSegmentWriteToStream() throws IOException, UnreachableMirrorException, invalidManifestFileException {
+		Segment segment = new Segment("http://machine1.birzeit.edu/invalidManifest");
+		File outputFile = new File("outputFile");
+		OutputStream outputStream = new FileOutputStream(outputFile) ;
+		segment.writeContent(outputStream);
+	}
 }

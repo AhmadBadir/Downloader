@@ -1,6 +1,6 @@
 package downloader.manifest;
 
-import junit.framework.Test;
+import org.junit.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -25,7 +25,7 @@ public class ManifestTest
      */
     public static Test suite()
     {
-        return new TestSuite( ManifestTest.class );
+        return (Test) new TestSuite( ManifestTest.class );
     }
 
     /**
