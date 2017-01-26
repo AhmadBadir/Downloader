@@ -3,7 +3,7 @@
  */
 package downloader.exceptions;
  
-
+ 
 
 public class invalidUrlException extends Exception {
 	
