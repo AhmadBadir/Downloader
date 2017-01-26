@@ -2,7 +2,7 @@
  * An exception thrown when a segment URL is not reachable 
  */
 package downloader.exceptions;
-
+ 
 
 
 public class invalidUrlException extends Exception {
