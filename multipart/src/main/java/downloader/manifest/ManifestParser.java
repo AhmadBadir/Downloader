@@ -117,6 +117,8 @@ public class ManifestParser {
 						}
 					}
 				}
+			} else {
+				throw new exception
 			}
 		}
 		return segments;
