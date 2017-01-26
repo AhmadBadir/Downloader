@@ -22,13 +22,14 @@ public class ManifestParser {
 	private ArrayList<UrlLine> segments;
 
 	/**
-	 * ManifestParser constructor, it takes Manifest file as an object to extract
-	 * the content
+	 * ManifestParser constructor, it takes Manifest file as an object to
+	 * extract the content
 	 * 
-	 * @param Object manifestFile manifestFile object
+	 * @param Object
+	 *            manifestFile manifestFile object
 	 * 
 	 */
-	
+
 	public ManifestParser(Manifest manifestFile) {
 		this.manifestFile = manifestFile;
 		segments = new ArrayList<UrlLine>();
@@ -38,22 +39,23 @@ public class ManifestParser {
 	 * getURLcontentType function, it takes Manifest url and extracts the
 	 * content type
 	 * 
-	 * @param String manifestUrl manifest string url
+	 * @param String
+	 *            manifestUrl manifest string url
 	 * 
 	 * @return string content type
 	 * 
 	 * @throws IOException
-	 * @throws invalidUrlException 
+	 * @throws invalidUrlException
 	 * 
 	 */
-	
+
 	private String getURLcontentType(String manifestUrl) throws IOException, invalidUrlException {
-		if(Utils.isUrl(manifestUrl)) {
-		URL url = new URL(manifestUrl);
-		HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-		connection.setRequestMethod("HEAD");
-		connection.connect();
-		return connection.getContentType();
+		if (Utils.isUrl(manifestUrl)) {
+			URL url = new URL(manifestUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("HEAD");
+			connection.connect();
+			return connection.getContentType();
 		} else {
 			throw new invalidUrlException("The URL provided is not valid URL");
 		}
@@ -62,15 +64,16 @@ public class ManifestParser {
 	/**
 	 * isValidManifestUrl function, check if the manifest url is valid
 	 * 
-	 * @param String url, manifest string url
+	 * @param String
+	 *            url, manifest string url
 	 * 
 	 * @return boolean true if url is valid manifest Url, false otherwise
 	 * 
 	 * @throws IOException
-	 * @throws invalidUrlException 
+	 * @throws invalidUrlException
 	 * 
 	 */
-	
+
 	private boolean isValidManifestUrl(String url) throws IOException, invalidUrlException {
 		if (url.endsWith(".segments") || getURLcontentType(url).equals("text/segments-manifest")) {
 			return true;
@@ -84,28 +87,28 @@ public class ManifestParser {
 	 * @param
 	 * 
 	 * @return ArrayList, returns array list of segments and manifest urls
-	 * inside manifest file
+	 *         inside manifest file
 	 * 
 	 * @throws IOException
-	 * @throws invalidUrlException 
+	 * @throws invalidUrlException
 	 * 
 	 */
-	
+
 	public ArrayList<UrlLine> getSegments() throws IOException, invalidUrlException {
 		ArrayList<String> manifestLines = extractManifestLines();
 		boolean isAlternative = false;
-		for(String manifestline :  manifestLines) {
-			if(manifestline.trim().equals("**")) {
+		for (String manifestline : manifestLines) {
+			if (manifestline.trim().equals("**")) {
 				isAlternative = false;
 			} else if (manifestline.trim().startsWith("http")) {
-				//validate if URL is real URL
-				if((Utils.isUrl(manifestline.trim()))) {
-					//check if Manifest
-					if(isValidManifestUrl(manifestline.trim())) {
+				// validate if URL is real URL
+				if ((Utils.isUrl(manifestline.trim()))) {
+					// check if Manifest
+					if (isValidManifestUrl(manifestline.trim())) {
 						segments.add(new Manifest(manifestline.trim()));
-					} else { 
+					} else {
 						// it is a Segment
-						if(isAlternative) {
+						if (isAlternative) {
 							Segment s = (Segment) segments.get(segments.size() - 1);
 							s.addMirror(manifestline);
 						} else {
@@ -124,13 +127,12 @@ public class ManifestParser {
 	 * 
 	 * @param
 	 * 
-	 * @return ArrayList, returns array list of lines inside the manifest
-	 * file
+	 * @return ArrayList, returns array list of lines inside the manifest file
 	 * 
 	 * @throws IOException
 	 * 
 	 */
-	
+
 	private ArrayList<String> extractManifestLines() throws IOException {
 		ArrayList<String> manifestLines = new ArrayList<String>();
 		URLConnection manifestUrlCon = new URL(this.manifestFile.getUrl()).openConnection();
