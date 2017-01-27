@@ -4,8 +4,12 @@
 
 package downloader.utils;
 
+import java.io.IOException;
+import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
+
+import downloader.exceptions.invalidUrlException;
 
 public class Utils {
 	
@@ -23,5 +27,50 @@ public class Utils {
 			return false;
 		}
 		return true;
+	}
+	/**
+	 * getURLcontentType function, it takes Manifest url and extracts the
+	 * content type
+	 * 
+	 * @param String
+	 *            manifestUrl manifest string url
+	 * 
+	 * @return string content type
+	 * 
+	 * @throws IOException
+	 * @throws invalidUrlException
+	 * 
+	 */
+
+	public static String getURLcontentType(String manifestUrl) throws IOException, invalidUrlException {
+		if (Utils.isUrl(manifestUrl)) {
+			URL url = new URL(manifestUrl);
+			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+			connection.setRequestMethod("HEAD");
+			connection.connect();
+			return connection.getContentType();
+		} else {
+			throw new invalidUrlException("The URL provided is not valid URL");
+		}
+	}
+	
+	/**
+	 * isValidManifestUrl function, check if the manifest url is valid
+	 * 
+	 * @param String
+	 *            url, manifest string url
+	 * 
+	 * @return boolean true if url is valid manifest Url, false otherwise
+	 * 
+	 * @throws IOException
+	 * @throws invalidUrlException
+	 * 
+	 */
+
+	public static boolean isValidManifestUrl(String url) throws IOException, invalidUrlException {
+		if (url.endsWith(".segments") || Utils.getURLcontentType(url).equals("text/segments-manifest")) {
+			return true;
+		}
+		return false;
 	}
 }
