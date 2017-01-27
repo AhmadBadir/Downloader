@@ -38,6 +38,7 @@ public class Segment extends UrlLine {
 	 * @throws UnreachableMirrorException
 	 *             Exception thrown in case the segment URL is not reachable
 	 */
+	@Override
 	public void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException {
 		URL mirror = new URL(this.mirrorUrl);
 		boolean foundWorkingMirror = false;

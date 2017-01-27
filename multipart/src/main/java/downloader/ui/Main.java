@@ -24,7 +24,9 @@ import javax.swing.event.ChangeEvent;
 import javax.swing.event.ChangeListener;
 
 import downloader.sequence.FileSequenceReader;
-
+import downloader.exceptions.UnreachableMirrorException;
+import downloader.exceptions.invalidManifestFileException;
+import downloader.exceptions.invalidUrlException;
 import downloader.multipart.MultiPart;
 
 
@@ -73,7 +75,15 @@ public class Main extends JFrame {
         JButton startButton = new JButton("Start");
         startButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		startDownload();
+        		try {
+					startDownload();
+				} catch (UnreachableMirrorException | invalidUrlException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				} catch (invalidManifestFileException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
         	}
         });
         stepButton = new JButton("Step");
@@ -129,8 +139,11 @@ public class Main extends JFrame {
 	 * Downloads and previews the entire stream if it's a normal file.
 	 * If it is a sequence file (with suffix .seq), downloads and previews
 	 * one file at a time.
+	 * @throws invalidUrlException 
+	 * @throws UnreachableMirrorException 
+	 * @throws invalidManifestFileException 
 	 */
-	private void startDownload() {
+	private void startDownload() throws UnreachableMirrorException, invalidUrlException, invalidManifestFileException {
     	finishDownload();
 
     	String url = urlField.getText();
@@ -145,10 +158,16 @@ public class Main extends JFrame {
 			if(path.endsWith(MANIFEST_SUFFIX)) // ignore metafile suffix
 				path = path.substring(0, path.length()-MANIFEST_SUFFIX.length());
 			
-			if(path.endsWith(SEQ_SUFFIX)) { // note, then remove sequence type
-				path = path.substring(0, path.length()-SEQ_SUFFIX.length());
-				isSequence = true;
-			}
+			if(path.endsWith(SEQ_SUFFIX))
+				try {
+					{ // note, then remove sequence type
+						path = path.substring(0, path.length()-SEQ_SUFFIX.length());
+						isSequence = true;
+					}
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
 
 			// file type is everything after last '.':
 			fileType = path.substring(path.lastIndexOf('.')+1);

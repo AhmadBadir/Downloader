@@ -4,6 +4,12 @@
 
 package downloader.manifest;
 
+import java.io.IOException;
+import java.io.OutputStream;
+
+import downloader.exceptions.UnreachableMirrorException;
+import downloader.exceptions.invalidManifestFileException;
+import downloader.exceptions.invalidUrlException;
 
 public class Manifest extends UrlLine {
 	// Manifest main URL
@@ -22,6 +28,15 @@ public class Manifest extends UrlLine {
 
 	public String getUrl() {
 		return url;
+	}
+
+	@Override
+	public void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException, invalidUrlException, invalidManifestFileException {
+		ManifestParser parser = new ManifestParser(this);
+		for (UrlLine segment :  parser.getSegments()) {
+			segment.writeContent(outputStream);
+		}
+		
 	}
 
 }
