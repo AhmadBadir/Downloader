@@ -69,7 +69,7 @@ public class ManifestParserTest
 	 * @throws InvalidManifestFormat 
 	 */
 	@Test(expected=IOException.class)
-	public void testGetManifestSegmentIOException() throws IOException, invalidManifestFileException, invalidUrlException {
+	public void testSegmentIOException() throws IOException, invalidManifestFileException, invalidUrlException {
 		String urlString = "http://machine1.birzeit.edu/emptyManifest";
 		Manifest emptyManifest = new Manifest(urlString);
 		ManifestParser manifestParser = new ManifestParser(emptyManifest);
@@ -81,7 +81,7 @@ public class ManifestParserTest
 	 * @throws InvalidManifestFormat 
 	 */
 	@Test(expected=invalidManifestFileException.class)
-	public void testGetManifestSegmentInvalidStringsSeg() throws IOException, invalidManifestFileException, invalidUrlException {
+	public void testSegmentInvalidString() throws IOException, invalidManifestFileException, invalidUrlException {
 		String urlString = "http://machine1.birzeit.edu/manifest";
 		Manifest emptyManifest = new Manifest(urlString);
 		ManifestParser manifestParser = new ManifestParser(emptyManifest);
