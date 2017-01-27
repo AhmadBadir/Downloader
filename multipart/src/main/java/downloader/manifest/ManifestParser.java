@@ -36,51 +36,6 @@ public class ManifestParser {
 		segments = new ArrayList<UrlLine>();
 	}
 
-	/**
-	 * getURLcontentType function, it takes Manifest url and extracts the
-	 * content type
-	 * 
-	 * @param String
-	 *            manifestUrl manifest string url
-	 * 
-	 * @return string content type
-	 * 
-	 * @throws IOException
-	 * @throws invalidUrlException
-	 * 
-	 */
-
-	private String getURLcontentType(String manifestUrl) throws IOException, invalidUrlException {
-		if (Utils.isUrl(manifestUrl)) {
-			URL url = new URL(manifestUrl);
-			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-			connection.setRequestMethod("HEAD");
-			connection.connect();
-			return connection.getContentType();
-		} else {
-			throw new invalidUrlException("The URL provided is not valid URL");
-		}
-	}
-
-	/**
-	 * isValidManifestUrl function, check if the manifest url is valid
-	 * 
-	 * @param String
-	 *            url, manifest string url
-	 * 
-	 * @return boolean true if url is valid manifest Url, false otherwise
-	 * 
-	 * @throws IOException
-	 * @throws invalidUrlException
-	 * 
-	 */
-
-	private boolean isValidManifestUrl(String url) throws IOException, invalidUrlException {
-		if (url.endsWith(".segments") || getURLcontentType(url).equals("text/segments-manifest")) {
-			return true;
-		}
-		return false;
-	}
 
 	/**
 	 * getSegments function, extracts the segments from manifest file
@@ -106,7 +61,7 @@ public class ManifestParser {
 				// validate if URL is real URL
 				if ((Utils.isUrl(manifestline.trim()))) {
 					// check if Manifest
-					if (isValidManifestUrl(manifestline.trim())) {
+					if (Utils.isValidManifestUrl(manifestline.trim())) {
 						segments.add(new Manifest(manifestline.trim()));
 					} else {
 						// it is a Segment
