@@ -66,8 +66,7 @@ public class ManifestParser {
 					} else {
 						// it is a Segment
 						if (isAlternative) {
-							Segment s = (Segment) segments.get(segments.size() - 1);
-							s.addMirror(manifestline);
+						  segments.get(segments.size() - 1).addMirror(manifestline.trim());;
 						} else {
 							segments.add(new Segment(manifestline.trim()));
 							isAlternative = true;

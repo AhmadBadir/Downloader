@@ -5,14 +5,12 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.net.URLConnection;
-import java.util.ArrayList;
 
 import downloader.exceptions.UnreachableMirrorException;
 
 public class Segment extends UrlLine {
 
 	private String mirrorUrl;
-	private ArrayList<String> mirrorAlternatives;
 
 	/**
 	 * Segment constructor, it takes mirrorURL.
@@ -23,11 +21,10 @@ public class Segment extends UrlLine {
 
 	public Segment(String mirrorUrl) {
 		this.mirrorUrl = mirrorUrl;
-		mirrorAlternatives = new ArrayList<String>();
 	}
 
 	public void addMirror(String mirrorAlternative) {
-		this.mirrorAlternatives.add(mirrorAlternative);
+		this.getMirrorAlternatives().add(mirrorAlternative);
 
 	}
 
@@ -51,8 +48,8 @@ public class Segment extends UrlLine {
 
 		if (in == null) {
 			// go for alternative methods
-			for (int i = 0; i < this.mirrorAlternatives.size(); i++) {
-				mirror = new URL(this.mirrorAlternatives.get(i));
+			for (int i = 0; i < this.getMirrorAlternatives().size(); i++) {
+				mirror = new URL(this.getMirrorAlternatives().get(i));
 				conn = mirror.openConnection();
 				in = conn.getInputStream();
 				if (in != null) {
