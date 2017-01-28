@@ -25,8 +25,9 @@ import javax.swing.event.ChangeListener;
 
 import downloader.sequence.FileSequenceReader;
 import downloader.exceptions.UnreachableMirrorException;
-import downloader.exceptions.invalidManifestFileException;
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidManifestFileException;
+import downloader.exceptions.InvalidSequence;
+import downloader.exceptions.InvalidUrlException;
 import downloader.multipart.MultiPart;
 
 
@@ -77,11 +78,9 @@ public class Main extends JFrame {
         	public void actionPerformed(ActionEvent e) {
         		try {
 					startDownload();
-				} catch (UnreachableMirrorException | invalidUrlException e1) {
-					// TODO Auto-generated catch block
+				} catch (UnreachableMirrorException | InvalidUrlException e1) {
 					e1.printStackTrace();
-				} catch (invalidManifestFileException e1) {
-					// TODO Auto-generated catch block
+				} catch (InvalidManifestFileException e1) {
 					e1.printStackTrace();
 				}
         	}
@@ -90,7 +89,11 @@ public class Main extends JFrame {
         stepButton.setEnabled(false);
         stepButton.addActionListener(new ActionListener() {
         	public void actionPerformed(ActionEvent e) {
-        		downloadNextFileFromSequence();
+        		try {
+					downloadNextFileFromSequence();
+				} catch (InvalidSequence e1) {
+					e1.printStackTrace();
+				}
         	}
         });
         sliderLabel = new JLabel("Animation Speed:");
@@ -139,11 +142,11 @@ public class Main extends JFrame {
 	 * Downloads and previews the entire stream if it's a normal file.
 	 * If it is a sequence file (with suffix .seq), downloads and previews
 	 * one file at a time.
-	 * @throws invalidUrlException 
+	 * @throws InvalidUrlException 
 	 * @throws UnreachableMirrorException 
-	 * @throws invalidManifestFileException 
+	 * @throws InvalidManifestFileException 
 	 */
-	private void startDownload() throws UnreachableMirrorException, invalidUrlException, invalidManifestFileException {
+	private void startDownload() throws UnreachableMirrorException, InvalidUrlException, InvalidManifestFileException {
     	finishDownload();
 
     	String url = urlField.getText();
@@ -165,7 +168,6 @@ public class Main extends JFrame {
 						isSequence = true;
 					}
 				} catch (Exception e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 
@@ -193,7 +195,11 @@ public class Main extends JFrame {
 			sliderLabel.setEnabled(true);
 	    	timer = new Timer(1000, new ActionListener() {
 	    		public void actionPerformed(ActionEvent e) {
-	    			downloadNextFileFromSequence();
+	    			try {
+						downloadNextFileFromSequence();
+					} catch (InvalidSequence e1) {
+						e1.printStackTrace();
+					}
 	    		}
 	    	});
 	    	// timer will be started and delay set by animate()
@@ -253,7 +259,7 @@ public class Main extends JFrame {
 		}
 	}
 	
-	private void downloadNextFileFromSequence() {
+	private void downloadNextFileFromSequence() throws InvalidSequence {
 		try {
 			byte[] data = FileSequenceReader.readOneFile(multipart);
 			if(data!=null)
