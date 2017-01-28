@@ -2,8 +2,8 @@ package downloader.manifest;
 
 import org.junit.Test;
 
-import downloader.exceptions.invalidManifestFileException;
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidManifestFileException;
+import downloader.exceptions.InvalidUrlException;
 
 import java.io.IOException;
 
@@ -65,11 +65,11 @@ public class ManifestParserTest
 	
 	/**
 	 * @throws IOException 
-	 * @throws invalidUrlException 
+	 * @throws InvalidUrlException 
 	 * @throws InvalidManifestFormat 
 	 */
 	@Test(expected=IOException.class)
-	public void testSegmentIOException() throws IOException, invalidManifestFileException, invalidUrlException {
+	public void testSegmentIOException() throws IOException, InvalidManifestFileException, InvalidUrlException {
 		String urlString = "http://machine1.birzeit.edu/emptyManifest";
 		Manifest emptyManifest = new Manifest(urlString);
 		ManifestParser manifestParser = new ManifestParser(emptyManifest);
@@ -77,11 +77,11 @@ public class ManifestParserTest
 	}
 	/**
 	 * @throws IOException 
-	 * @throws invalidUrlException 
+	 * @throws InvalidUrlException 
 	 * @throws InvalidManifestFormat 
 	 */
-	@Test(expected=invalidManifestFileException.class)
-	public void testSegmentInvalidString() throws IOException, invalidManifestFileException, invalidUrlException {
+	@Test(expected=InvalidManifestFileException.class)
+	public void testSegmentInvalidString() throws IOException, InvalidManifestFileException, InvalidUrlException {
 		String urlString = "http://machine1.birzeit.edu/manifest";
 		Manifest emptyManifest = new Manifest(urlString);
 		ManifestParser manifestParser = new ManifestParser(emptyManifest);

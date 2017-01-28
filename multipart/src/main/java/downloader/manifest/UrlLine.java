@@ -9,8 +9,8 @@ import java.io.OutputStream;
 import java.util.ArrayList;
 
 import downloader.exceptions.UnreachableMirrorException;
-import downloader.exceptions.invalidManifestFileException;
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidManifestFileException;
+import downloader.exceptions.InvalidUrlException;
 
 public abstract class UrlLine {
 
@@ -25,7 +25,7 @@ public abstract class UrlLine {
 
 	}
 	
-	public abstract void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException, invalidUrlException, invalidManifestFileException;
+	public abstract void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException, InvalidUrlException, InvalidManifestFileException;
 
 
 }

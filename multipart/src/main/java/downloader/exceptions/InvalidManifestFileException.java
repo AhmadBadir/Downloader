@@ -5,15 +5,15 @@ package downloader.exceptions;
  
  
 
-public class invalidManifestFileException extends Exception {
+public class InvalidManifestFileException extends Exception {
 	
 	/**
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
 
-	  public invalidManifestFileException() { super(); }
-	  public invalidManifestFileException(String message) { super(message); }
-	  public invalidManifestFileException(String message, Throwable cause) { super(message, cause); }
-	  public invalidManifestFileException(Throwable cause) { super(cause); }
+	  public InvalidManifestFileException() { super(); }
+	  public InvalidManifestFileException(String message) { super(message); }
+	  public InvalidManifestFileException(String message, Throwable cause) { super(message, cause); }
+	  public InvalidManifestFileException(Throwable cause) { super(cause); }
 	}

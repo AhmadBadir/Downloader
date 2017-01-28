@@ -8,7 +8,7 @@ import java.io.OutputStream;
 import org.junit.Test;
 
 import downloader.exceptions.UnreachableMirrorException;
-import downloader.exceptions.invalidManifestFileException;
+import downloader.exceptions.InvalidManifestFileException;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
@@ -45,7 +45,7 @@ public class SegmentTest
     }
     
     @Test
-	public final void testWriteContent() throws IOException, UnreachableMirrorException, invalidManifestFileException {
+	public final void testWriteContent() throws IOException, UnreachableMirrorException, InvalidManifestFileException {
 		Segment segment = new Segment("http://machine1.birzeit.edu/manifest");
 		File outputFile = new File("outputFile");
 		OutputStream outputStream = new FileOutputStream(outputFile) ;
@@ -53,7 +53,7 @@ public class SegmentTest
 	}
     
     @Test(expected=UnreachableMirrorException.class)
-	public final void testUnreachableWriteContent() throws IOException, UnreachableMirrorException, invalidManifestFileException {
+	public final void testUnreachableWriteContent() throws IOException, UnreachableMirrorException, InvalidManifestFileException {
 		Segment segment = new Segment("http://machine1.birzeit.edu/invalidManifest");
 		File outputFile = new File("outputFile");
 		OutputStream outputStream = new FileOutputStream(outputFile) ;

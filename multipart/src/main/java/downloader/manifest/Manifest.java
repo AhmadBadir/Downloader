@@ -8,8 +8,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 import downloader.exceptions.UnreachableMirrorException;
-import downloader.exceptions.invalidManifestFileException;
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidManifestFileException;
+import downloader.exceptions.InvalidUrlException;
 
 public class Manifest extends UrlLine {
 	// Manifest main URL
@@ -31,7 +31,7 @@ public class Manifest extends UrlLine {
 	}
 
 	@Override
-	public void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException, invalidUrlException, invalidManifestFileException {
+	public void writeContent(OutputStream outputStream) throws IOException, UnreachableMirrorException, InvalidUrlException, InvalidManifestFileException {
 		ManifestParser parser = new ManifestParser(this);
 		for (UrlLine segment :  parser.getSegments()) {
 			segment.writeContent(outputStream);

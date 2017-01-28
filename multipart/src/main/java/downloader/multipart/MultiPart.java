@@ -8,8 +8,8 @@ import java.io.InputStream;
 import java.io.OutputStream;
 
 import downloader.exceptions.UnreachableMirrorException;
-import downloader.exceptions.invalidManifestFileException;
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidManifestFileException;
+import downloader.exceptions.InvalidUrlException;
 import downloader.manifest.Manifest;
 import downloader.manifest.Segment;
 import downloader.manifest.UrlLine;
@@ -31,11 +31,11 @@ public class MultiPart {
 	 * stream streams data directly from the url target.
 	 * 
 	 * @throws UnreachableMirrorException
-	 * @throws invalidUrlException
-	 * @throws invalidManifestFileException 
+	 * @throws InvalidUrlException
+	 * @throws InvalidManifestFileException 
 	 */
 	public static InputStream openStream(String url)
-			throws IOException, UnreachableMirrorException, invalidUrlException, invalidManifestFileException {
+			throws IOException, UnreachableMirrorException, InvalidUrlException, InvalidManifestFileException {
 
 		File outputStream = new File("OutputStream");
 		UrlLine mainUrl = null;
@@ -51,7 +51,7 @@ public class MultiPart {
 			mainUrl.writeContent(new FileOutputStream(outputStream));
 			return new FileInputStream(outputStream);
 		} else {
-			throw new invalidUrlException("Provided URL is not valid URL");
+			throw new InvalidUrlException("Provided URL is not valid URL");
 		}
 
 	}

@@ -9,7 +9,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 
-import downloader.exceptions.invalidUrlException;
+import downloader.exceptions.InvalidUrlException;
 
 public class Utils {
 	
@@ -38,11 +38,11 @@ public class Utils {
 	 * @return string content type
 	 * 
 	 * @throws IOException
-	 * @throws invalidUrlException
+	 * @throws InvalidUrlException
 	 * 
 	 */
 
-	public static String getURLcontentType(String manifestUrl) throws IOException, invalidUrlException {
+	public static String getURLcontentType(String manifestUrl) throws IOException, InvalidUrlException {
 		if (Utils.isUrl(manifestUrl)) {
 			URL url = new URL(manifestUrl);
 			HttpURLConnection connection = (HttpURLConnection) url.openConnection();
@@ -50,7 +50,7 @@ public class Utils {
 			connection.connect();
 			return connection.getContentType();
 		} else {
-			throw new invalidUrlException("The URL provided is not valid URL");
+			throw new InvalidUrlException("The URL provided is not valid URL");
 		}
 	}
 	
@@ -63,11 +63,11 @@ public class Utils {
 	 * @return boolean true if url is valid manifest Url, false otherwise
 	 * 
 	 * @throws IOException
-	 * @throws invalidUrlException
+	 * @throws InvalidUrlException
 	 * 
 	 */
 
-	public static boolean isValidManifestUrl(String url) throws IOException, invalidUrlException {
+	public static boolean isValidManifestUrl(String url) throws IOException, InvalidUrlException {
 		if (url.endsWith(".segments") || Utils.getURLcontentType(url).equals("text/segments-manifest")) {
 			return true;
 		}
