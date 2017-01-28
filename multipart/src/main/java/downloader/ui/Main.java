@@ -74,17 +74,15 @@ public class Main extends JFrame {
         
         urlField = new JTextField(40);
         JButton startButton = new JButton("Start");
-        startButton.addActionListener(new ActionListener() {
-        	public void actionPerformed(ActionEvent e) {
-        		try {
+		startButton.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				try {
 					startDownload();
-				} catch (UnreachableMirrorException | InvalidUrlException e1) {
-					e1.printStackTrace();
-				} catch (InvalidManifestFileException e1) {
+				} catch (UnreachableMirrorException | InvalidUrlException | InvalidManifestFileException e1) {
 					e1.printStackTrace();
 				}
-        	}
-        });
+			}
+		});
         stepButton = new JButton("Step");
         stepButton.setEnabled(false);
         stepButton.addActionListener(new ActionListener() {
